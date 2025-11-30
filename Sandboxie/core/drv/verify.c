@@ -535,6 +535,18 @@ SCertInfo Verify_CertInfo = { 0 };
 
 _FX NTSTATUS KphValidateCertificate()
 {
+	
+    // 强制激活证书并设置为最高级别，绕过所有验证逻辑
+    Verify_CertInfo.State = 0; // 清除所有状态
+    Verify_CertInfo.active = 1; // 激活证书
+    Verify_CertInfo.type = eCertEternal; // 设置为永恒类型
+    Verify_CertInfo.level = eCertMaxLevel; // 设置为最高级别
+    Verify_CertInfo.opt_desk = 1; // 启用所有可选功能
+    Verify_CertInfo.opt_net = 1;
+    Verify_CertInfo.opt_enc = 1;
+    Verify_CertInfo.opt_sec = 1;
+
+    return STATUS_SUCCESS; // 直接返回成功状态
     BOOLEAN CertDbg = FALSE;
 
     static const WCHAR *path_cert = L"%s\\Certificate.dat";
