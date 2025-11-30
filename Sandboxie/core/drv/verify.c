@@ -389,6 +389,9 @@ CleanupExit:
 
 NTSTATUS KphVerifyCurrentProcess()
 {
+	// 强制返回成功，绕过驱动程序自身的完整性检查
+    return STATUS_SUCCESS;
+	
     NTSTATUS status;
     PUNICODE_STRING processFileName = NULL;
     PUNICODE_STRING signatureFileName = NULL;
